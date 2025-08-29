@@ -6,6 +6,7 @@ import { insertAttendanceSchema, insertExpenseSchema, insertLocationSchema } fro
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { emailService } from "./emailService";
 
 // Setup multer for file uploads
 const uploadDir = path.join(process.cwd(), "uploads");
@@ -223,6 +224,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const expenses = await storage.getPendingExpenses();
       res.json(expenses);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/admin/team-attendance", requireAdmin, async (req, res) => {
+    try {
+      const teamStatus = await storage.getTeamAttendanceStatus();
+      res.json(teamStatus);
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  app.post("/api/admin/send-reminder", requireAdmin, async (req, res) => {
+    try {
+      const { userIds, message } = req.body;
+      
+      if (!userIds || !Array.isArray(userIds) || userIds.length === 0) {
+        return res.status(400).json({ message: "Aucun utilisateur sélectionné" });
+      }
+
+      const notifiedUsers = [];
+      const failedUsers = [];
+      
+      for (const userId of userIds) {
+        const user = await storage.getUser(userId);
+        if (user) {
+          try {
+            const emailSent = await emailService.sendAttendanceReminder(user.email, user.name);
+            if (emailSent) {
+              notifiedUsers.push(user.name);
+            } else {
+              failedUsers.push(user.name);
+            }
+          } catch (error) {
+            console.error(`Erreur lors de l'envoi à ${user.email}:`, error);
+            failedUsers.push(user.name);
+          }
+        }
+      }
+      
+      const successMessage = notifiedUsers.length > 0 
+        ? `Notifications envoyées à ${notifiedUsers.length} utilisateur(s)`
+        : "Aucune notification envoyée";
+      
+      const errorMessage = failedUsers.length > 0 
+        ? ` (${failedUsers.length} échec(s))`
+        : "";
+      
+      res.json({ 
+        message: successMessage + errorMessage,
+        notifiedUsers,
+        failedUsers
+      });
+    } catch (error: any) {
+      res.status(400).json({ message: error.message });
+    }
+  });
+
+  app.get("/api/admin/users-not-clocked", requireAdmin, async (req, res) => {
+    try {
+      const users = await storage.getUsersNotClockedIn();
+      res.json(users);
     } catch (error: any) {
       res.status(400).json({ message: error.message });
     }

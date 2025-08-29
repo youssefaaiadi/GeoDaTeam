@@ -25,6 +25,8 @@ export interface IStorage {
   
   getAdminStats(): Promise<any>;
   getTeamMembers(): Promise<User[]>;
+  getTeamAttendanceStatus(): Promise<any[]>;
+  getUsersNotClockedIn(): Promise<User[]>;
   
   sessionStore: session.SessionStore;
 }
@@ -198,6 +200,37 @@ export class MemStorage implements IStorage {
     return Array.from(this.users.values())
       .filter((user) => user.role === "employee")
       .sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  async getTeamAttendanceStatus(): Promise<any[]> {
+    const today = new Date().toISOString().split('T')[0];
+    const employees = await this.getTeamMembers();
+    
+    return employees.map(employee => {
+      const todayAttendance = Array.from(this.attendanceRecords.values())
+        .find(record => record.userId === employee.id && record.date === today);
+      
+      return {
+        ...employee,
+        attendance: todayAttendance || null,
+        isPresent: !!todayAttendance,
+        isClockedIn: todayAttendance && !todayAttendance.clockOut,
+        status: todayAttendance 
+          ? (todayAttendance.clockOut ? 'completed' : 'active') 
+          : 'absent'
+      };
+    });
+  }
+
+  async getUsersNotClockedIn(): Promise<User[]> {
+    const today = new Date().toISOString().split('T')[0];
+    const employees = await this.getTeamMembers();
+    
+    return employees.filter(employee => {
+      const todayAttendance = Array.from(this.attendanceRecords.values())
+        .find(record => record.userId === employee.id && record.date === today);
+      return !todayAttendance;
+    });
   }
 }
 
