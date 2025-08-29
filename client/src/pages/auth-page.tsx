@@ -50,43 +50,6 @@ export default function AuthPage() {
             <h1 className="text-4xl font-bold tracking-tight text-foreground mb-4">
               Geo DaTeam
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Gestion d'équipe pour géomètres professionnels
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex items-center space-x-3 p-4 bg-card/50 rounded-lg border border-border/50">
-              <Clock className="h-8 w-8 text-primary" />
-              <div>
-                <h3 className="font-semibold text-foreground">Pointage GPS</h3>
-                <p className="text-sm text-muted-foreground">Suivi en temps réel</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-3 p-4 bg-card/50 rounded-lg border border-border/50">
-              <FileText className="h-8 w-8 text-primary" />
-              <div>
-                <h3 className="font-semibold text-foreground">Notes de frais</h3>
-                <p className="text-sm text-muted-foreground">Gestion simplifiée</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-3 p-4 bg-card/50 rounded-lg border border-border/50">
-              <Users className="h-8 w-8 text-primary" />
-              <div>
-                <h3 className="font-semibold text-foreground">Équipe</h3>
-                <p className="text-sm text-muted-foreground">Dashboard admin</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-3 p-4 bg-card/50 rounded-lg border border-border/50">
-              <MapPin className="h-8 w-8 text-primary" />
-              <div>
-                <h3 className="font-semibold text-foreground">Localisation</h3>
-                <p className="text-sm text-muted-foreground">Tracking optionnel</p>
-              </div>
-            </div>
           </div>
         </div>
 
