@@ -32,7 +32,7 @@ export default function Navigation({ activeSection, onSectionChange }: Navigatio
             <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center">
               <MapPin className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="ml-2 text-xl font-semibold text-foreground">GeoTracker</span>
+            <span className="ml-2 text-xl font-semibold text-foreground">Geo DaTeam</span>
           </div>
           
           {/* Desktop Navigation */}

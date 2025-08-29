@@ -136,7 +136,7 @@ export default function Expenses() {
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Ce mois</p>
                 <p className="text-2xl font-bold text-foreground" data-testid="text-expenses-this-month">
-                  €{stats.thisMonth.toFixed(2)}
+                  {stats.thisMonth.toFixed(2)} MAD
                 </p>
               </div>
               <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -152,7 +152,7 @@ export default function Expenses() {
               <div>
                 <p className="text-sm font-medium text-muted-foreground">En attente</p>
                 <p className="text-2xl font-bold text-foreground" data-testid="text-expenses-pending">
-                  €{stats.pending.toFixed(2)}
+                  {stats.pending.toFixed(2)} MAD
                 </p>
               </div>
               <div className="h-10 w-10 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -168,7 +168,7 @@ export default function Expenses() {
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Validées</p>
                 <p className="text-2xl font-bold text-foreground" data-testid="text-expenses-approved">
-                  €{stats.approved.toFixed(2)}
+                  {stats.approved.toFixed(2)} MAD
                 </p>
               </div>
               <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center">
@@ -198,7 +198,7 @@ export default function Expenses() {
             </div>
             
             <div>
-              <Label htmlFor="expense-amount">Montant (€)</Label>
+              <Label htmlFor="expense-amount">Montant (MAD)</Label>
               <Input
                 id="expense-amount"
                 type="number"
@@ -302,7 +302,7 @@ export default function Expenses() {
                       </div>
                       <div className="text-right">
                         <div className="font-semibold text-foreground">
-                          €{parseFloat(expense.amount).toFixed(2)}
+                          {parseFloat(expense.amount).toFixed(2)} MAD
                         </div>
                         {getStatusBadge(expense.status)}
                       </div>

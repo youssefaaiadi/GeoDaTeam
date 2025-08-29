@@ -141,7 +141,7 @@ export default function Admin() {
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Montant total</p>
                 <p className="text-2xl font-bold text-foreground" data-testid="text-total-amount">
-                  {loadingStats ? "..." : `€${stats?.totalAmount?.toFixed(2) || "0.00"}`}
+                  {loadingStats ? "..." : `${stats?.totalAmount?.toFixed(2) || "0.00"} MAD`}
                 </p>
               </div>
               <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -258,7 +258,7 @@ export default function Admin() {
                         </div>
                       </div>
                       <span className="font-semibold text-foreground">
-                        €{parseFloat(expense.amount).toFixed(2)}
+                        {parseFloat(expense.amount).toFixed(2)} MAD
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground mb-3">

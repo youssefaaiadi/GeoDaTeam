@@ -48,7 +48,7 @@ export default function AuthPage() {
               </div>
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground mb-4">
-              GeoTracker
+              Geo DaTeam
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
               Gestion d'équipe pour géomètres professionnels
@@ -101,7 +101,7 @@ export default function AuthPage() {
               </div>
               <CardTitle className="text-2xl">Connexion</CardTitle>
               <CardDescription>
-                Accédez à votre espace GeoTracker
+                Accédez à votre espace Geo DaTeam
               </CardDescription>
             </CardHeader>
             <CardContent>
